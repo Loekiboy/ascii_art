@@ -37,13 +37,12 @@
         const asciiOutput = document.getElementById('ascii-output');
         const charList = document.getElementById('char-list').innerText.trim();
         const widthSlider = document.getElementById('width-slider');
-        const widthValue = document.getElementById('width-value');
+        const widthValue = document.getElementById('width-value'); 
 
-        let currentImg = null; // Om de afbeelding op te slaan voor herverwerking
+        let currentImg = null;
 
-        // Functie om de afbeelding te verwerken
         function processImage(img) {
-            const width = parseInt(widthSlider.value); // Gebruik slider-waarde voor breedte (aantal karakters)
+            const width = parseInt(widthSlider.value);
             const scale = width / img.width;
             const height = img.height * scale * 0.55;
             
@@ -76,7 +75,6 @@
 
             asciiOutput.innerText = asciiArt;
 
-            // Zwart-wit maken
             for (let i = 0; i < data.length; i += 4) {
                 const avg = (data[i] + data[i+1] + data[i+2]) / 3;
                 data[i] = data[i+1] = data[i+2] = avg;
@@ -84,7 +82,6 @@
             ctx.putImageData(imageData, 0, 0);
         }
 
-        // Slider event: update waarde en herverwerk indien afbeelding geladen
         widthSlider.oninput = function() {
             widthValue.innerText = this.value;
             if (currentImg) {
@@ -99,7 +96,7 @@
                 reader.onload = function(event) {
                     const img = new Image();
                     img.onload = function() {
-                        currentImg = img; // Sla de afbeelding op
+                        currentImg = img;
                         processImage(img);
                     };
                     img.src = event.target.result;
